@@ -1,8 +1,15 @@
 package stonesLibrary;
 
 public class dialog {
-    public static String intro = "Play Game? (Y)es/(N)o";
+    public static String intro = "Play Game? (1)Yes/(2)No";
+
     public static String coinFlip = "Coin Flip (H)eads/(T)ails";
-    public static String lessThanThreeStonesChoice = "test lessThanThreeStonesChoice";
-    public static String standardRemovalChoice = "test standardRemovalChoice";
+
+    public static String lessThanThreeStonesChoice = "Remove (1), (2) Stones";
+
+    public static String standardRemovalChoice = "Remove (1), (2), (3) Stones";
+
+
+
+    public static String gameConclusion = "Your record:  ";
 }
