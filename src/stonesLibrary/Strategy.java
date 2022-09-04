@@ -3,9 +3,9 @@ package stonesLibrary;
 import java.util.HashMap;
 
 public class Strategy {
-    private Player player;
+    private final Player player;
     private Pot pot;
-    private ComputerPlayer computerPlayer;
+    private final ComputerPlayer computerPlayer;
     private boolean coinFlip;
 
     public Strategy(){
@@ -24,12 +24,15 @@ public class Strategy {
         return this.player.isPlayerTurn();
     }
 
-    private void setPlayerTurn(boolean playerTurn) {
-        this.player.setPlayerTurn(playerTurn);
-    }
-
+    /**
+     * Switch between player tunrs.
+     */
     public void togglePlayerTurn(){
         this.player.setPlayerTurn(!(this.player.isPlayerTurn()));
+    }
+
+    public void toggleCoinFlip(){
+        this.coinFlip = !(this.coinFlip);
     }
     private CoinFlip getCoinFlip(){
             int coinFlip = (int)(Math.random()*100) % 2;
@@ -39,22 +42,27 @@ public class Strategy {
                 return CoinFlip.TAILS;
             }
         }
+
+    /**
+     * Take String input and check if the user won the coinflip.
+     * @param userCoinFlip String
+     */
     public void userCoinFlip(String userCoinFlip){
-            if(getCoinFlip() == Validation.userCoinFlipInputValidator(userCoinFlip)){
-                this.player.setPlayerTurn(true);}
-            else{
-                this.player.setPlayerTurn(false);}
+        this.player.setPlayerTurn(getCoinFlip() == Validation.userCoinFlipInputValidator(userCoinFlip));
             this.coinFlip = false;
     }
 
-    public static String opponentChoice(int pot){
-        String opponentChoice = "testOpponentChoice";
-        return opponentChoice;
-    }
-    public void computerPlayerTurn(){
-        this.pot.removeStones(this.computerPlayer.turn());
+    /**
+     * Computes computers turn and returns the computers turn as a String
+     * @return String
+     */
+
+    public String computerPlayerTurn(){
+        int computerChoice = this.computerPlayer.turn();
+        this.pot.removeStones(computerChoice);
         togglePlayerTurn();
         if(isGameLost()){this.player.winIncrement();}
+        return "The Computer chose " + computerChoice;
     }
 
     public int getPotAmount(){
@@ -73,9 +81,6 @@ public class Strategy {
     public String getPlayerRecord(){
         HashMap<String, Integer> playerRecord = this.player.getRecord();
         return "Wins " + playerRecord.get("Wins") + ", Losses " + playerRecord.get("Losses");
-    }
-    public void resetLoss(){
-        this.pot.resetLoss();
     }
 
     public void newPot(){

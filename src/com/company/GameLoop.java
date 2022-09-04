@@ -20,7 +20,6 @@ public class GameLoop {
 
         while(true)
         {
-            // Create objects block
 
             boolean doesUserWantToPlay;
 
@@ -29,12 +28,12 @@ public class GameLoop {
             String userPlayGameInput = userInputScanner.nextLine();
             System.out.println(userPlayGameInput); //testing purposes
             doesUserWantToPlay = Validation.userPlayGameInputValidator(userPlayGameInput);
-            strategy.resetLoss();
+//            strategy.resetLoss();
 
             // if the player chooses to play will go through loop, if not game exits
             if(doesUserWantToPlay){
 
-                // checks if there needs to be a coinflip to determine first turn. And does coinflip if necessary.
+                // checks if there needs to be a coinflip to determine first turn. Performs coinflip if necessary.
                 // loop
                 if (strategy.isCoinFlip()) {
                     System.out.println(dialog.coinFlip);
@@ -45,28 +44,30 @@ public class GameLoop {
                 while(!strategy.isGameLost()){
                     System.out.println("Current pot total " + strategy.getPotAmount());
 
-                    // if it is the players turn run the if statement, if it is the opponents run the else statement
+                    // Checks if it is the players turn or computers.
                     if (strategy.isPlayerTurn()){
 
                         // checks if there is less than 3 stones in pot, if yes, display special dialog
                         String playerChoices = (strategy.getPotAmount() < 3) ? dialog.lessThanThreeStonesChoice :
                         dialog.standardRemovalChoice;
                         System.out.println(playerChoices);
+
+                        // Validates player input, subtracts it from the pot total and toggles the players turn.
                         int playerChoice = Validation.playerChoiceConverter(userInputScanner.nextLine());
                         strategy.playerRemoveStones(playerChoice);
                         strategy.togglePlayerTurn();
 
                     }else{
-                        String opponentChoice = Strategy.opponentChoice(strategy.getPotAmount());
-                        System.out.println(opponentChoice);
-                        strategy.computerPlayerTurn();
+                        // computers turn
+                        System.out.println(strategy.computerPlayerTurn());
                     }
                 }
-
+                // when the last stone is taken from the pot, show the game over screen and allows the player to play again.
                 if (strategy.isGameLost()){
                     System.out.println(dialog.gameConclusion);
                     System.out.println(strategy.getPlayerRecord());
                     strategy.newPot();
+                    strategy.toggleCoinFlip();
                 }
 
             }else{
