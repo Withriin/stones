@@ -27,7 +27,5 @@ public class Pot {
     public boolean lostGameCheck(){
         return this.loss;
     }
-    public void resetLoss(){
-        this.loss = false;
-    }
+
 }

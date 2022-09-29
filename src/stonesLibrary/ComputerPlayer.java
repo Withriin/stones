@@ -13,8 +13,13 @@ public class ComputerPlayer {
         return this.currentStones;
     }
 
-    public int turn(){
-        int stoneRemoval = random.nextInt(2) + 1;
+    public int turn(int potStonesAmount) {
+        int stoneRemoval;
+        if(potStonesAmount == 1 || potStonesAmount == 2){
+            stoneRemoval = 1;
+        }else{
+            stoneRemoval = random.nextInt(2) + 1;
+        }
         this.currentStones += stoneRemoval;
         return stoneRemoval;
     }

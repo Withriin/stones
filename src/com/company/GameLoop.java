@@ -28,7 +28,7 @@ public class GameLoop {
             String userPlayGameInput = userInputScanner.nextLine();
             System.out.println(userPlayGameInput); //testing purposes
             doesUserWantToPlay = Validation.userPlayGameInputValidator(userPlayGameInput);
-//            strategy.resetLoss();
+
 
             // if the player chooses to play will go through loop, if not game exits
             if(doesUserWantToPlay){
@@ -42,7 +42,7 @@ public class GameLoop {
 
                 // while there are stones left in the pot keep the game running
                 while(!strategy.isGameLost()){
-                    System.out.println("Current pot total " + strategy.getPotAmount());
+                    System.out.println(dialog.potAmount(strategy.getPotAmount()));
 
                     // Checks if it is the players turn or computers.
                     if (strategy.isPlayerTurn()){
@@ -59,13 +59,12 @@ public class GameLoop {
 
                     }else{
                         // computers turn
-                        System.out.println(strategy.computerPlayerTurn());
+                        System.out.println(dialog.computerTurn(strategy.computerPlayerTurn()));
                     }
                 }
                 // when the last stone is taken from the pot, show the game over screen and allows the player to play again.
                 if (strategy.isGameLost()){
-                    System.out.println(dialog.gameConclusion);
-                    System.out.println(strategy.getPlayerRecord());
+                    System.out.println(dialog.gameConclusion(strategy.getPlayerWins(), strategy.getPlayerLoss()));
                     strategy.newPot();
                     strategy.toggleCoinFlip();
                 }

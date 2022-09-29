@@ -1,17 +1,19 @@
 package stonesLibrary;
 
-import java.util.HashMap;
 
 public class Player {
     private int currentStones;
     private boolean playerTurn;
-    private HashMap<String, Integer> record;
+
+    private int wins;
+    private int loss;
+
     public Player() {
         this.currentStones = 0;
         this.playerTurn = false;
-        this.record = new HashMap<String, Integer>();
-        record.put("Wins", 0);
-        record.put("Losses", 0);
+        this.wins = 0;
+        this.loss = 0;
+
     }
 
 
@@ -31,14 +33,19 @@ public class Player {
         this.currentStones += stoneIncrease;
     }
 
-    public void winIncrement(){
-        record.put("Wins", record.get("Wins") + 1);
-    }
-    public void lossIncrement(){
-        record.put("Losses", record.get("Losses") + 1);
+    public void winIncrement() {
+        wins++;
     }
 
-    public HashMap<String, Integer> getRecord() {
-        return this.record;
+    public void lossIncrement() {
+        loss++;
+    }
+
+    public int getWins() {
+        return this.wins;
+    }
+
+    public int getLoss() {
+        return this.loss;
     }
 }

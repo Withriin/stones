@@ -1,6 +1,5 @@
 package stonesLibrary;
 
-import java.util.HashMap;
 
 public class Strategy {
     private final Player player;
@@ -35,13 +34,13 @@ public class Strategy {
         this.coinFlip = !(this.coinFlip);
     }
     private CoinFlip getCoinFlip(){
-            int coinFlip = (int)(Math.random()*100) % 2;
-            if(coinFlip == 1){
-                return CoinFlip.HEADS;
-            }else{
-                return CoinFlip.TAILS;
-            }
+        int coinFlip = (int)(Math.random()*100) % 2;
+        if(coinFlip == 1){
+            return CoinFlip.HEADS;
+        }else{
+            return CoinFlip.TAILS;
         }
+    }
 
     /**
      * Take String input and check if the user won the coinflip.
@@ -53,16 +52,16 @@ public class Strategy {
     }
 
     /**
-     * Computes computers turn and returns the computers turn as a String
-     * @return String
+     * Computes computers turn and returns the computers choice as an integer
+     * @return integer
      */
 
-    public String computerPlayerTurn(){
-        int computerChoice = this.computerPlayer.turn();
+    public int computerPlayerTurn(){
+        int computerChoice = this.computerPlayer.turn(getPotAmount());
         this.pot.removeStones(computerChoice);
         togglePlayerTurn();
         if(isGameLost()){this.player.winIncrement();}
-        return "The Computer chose " + computerChoice;
+        return  computerChoice;
     }
 
     public int getPotAmount(){
@@ -77,10 +76,11 @@ public class Strategy {
         this.player.increaseStones(stonesToRemove);
         if(isGameLost()){this.player.lossIncrement();}
     }
-
-    public String getPlayerRecord(){
-        HashMap<String, Integer> playerRecord = this.player.getRecord();
-        return "Wins " + playerRecord.get("Wins") + ", Losses " + playerRecord.get("Losses");
+    public int getPlayerWins(){
+        return player.getWins();
+    }
+    public int getPlayerLoss(){
+        return player.getLoss();
     }
 
     public void newPot(){
