@@ -1,7 +1,7 @@
 package com.company;
+import stonesLibrary.Dialog;
 import stonesLibrary.Strategy;
 import stonesLibrary.Validation;
-import stonesLibrary.dialog;
 
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public class GameLoop {
             boolean doesUserWantToPlay;
 
             // Ask if user wants to play
-            System.out.println(dialog.intro);
+            System.out.println(Dialog.intro);
             String userPlayGameInput = userInputScanner.nextLine();
             System.out.println(userPlayGameInput); //testing purposes
             doesUserWantToPlay = Validation.userPlayGameInputValidator(userPlayGameInput);
@@ -36,20 +36,20 @@ public class GameLoop {
                 // checks if there needs to be a coinflip to determine first turn. Performs coinflip if necessary.
                 // loop
                 if (strategy.isCoinFlip()) {
-                    System.out.println(dialog.coinFlip);
+                    System.out.println(Dialog.coinFlip);
                     strategy.userCoinFlip(userInputScanner.nextLine());
                 }
 
                 // while there are stones left in the pot keep the game running
                 while(!strategy.isGameLost()){
-                    System.out.println(dialog.potAmount(strategy.getPotAmount()));
+                    System.out.println(Dialog.potAmount(strategy.getPotAmount()));
 
                     // Checks if it is the players turn or computers.
                     if (strategy.isPlayerTurn()){
 
-                        // checks if there is less than 3 stones in pot, if yes, display special dialog
-                        String playerChoices = (strategy.getPotAmount() < 3) ? dialog.lessThanThreeStonesChoice :
-                        dialog.standardRemovalChoice;
+                        // checks if there is less than 3 stones in pot, if yes, display special Dialog
+                        String playerChoices = (strategy.getPotAmount() < 3) ? Dialog.lessThanThreeStonesChoice :
+                        Dialog.standardRemovalChoice;
                         System.out.println(playerChoices);
 
                         // Validates player input, subtracts it from the pot total and toggles the players turn.
@@ -59,12 +59,12 @@ public class GameLoop {
 
                     }else{
                         // computers turn
-                        System.out.println(dialog.computerTurn(strategy.computerPlayerTurn()));
+                        System.out.println(Dialog.computerTurn(strategy.computerPlayerTurn()));
                     }
                 }
                 // when the last stone is taken from the pot, show the game over screen and allows the player to play again.
                 if (strategy.isGameLost()){
-                    System.out.println(dialog.gameConclusion(strategy.getPlayerWins(), strategy.getPlayerLoss()));
+                    System.out.println(Dialog.gameConclusion(strategy.getPlayerWins(), strategy.getPlayerLoss()));
                     strategy.newPot();
                     strategy.toggleCoinFlip();
                 }

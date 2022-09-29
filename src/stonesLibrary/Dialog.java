@@ -1,6 +1,6 @@
 package stonesLibrary;
 
-public class dialog {
+public class Dialog {
     public static String intro = "Play Game? (1)Yes/(2)No";
 
     public static String coinFlip = "Coin Flip (H)eads/(T)ails";
@@ -28,7 +28,7 @@ public class dialog {
     }
 
     /**
-     * Return game conclusion dialog with current player win/loss count.
+     * Return game conclusion Dialog with current player win/loss count.
      * @param wins
      * @param loss
      * @return String
